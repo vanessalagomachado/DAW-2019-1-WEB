@@ -26,12 +26,16 @@ public class Util {
     public static void mensagemInformacao(String msg){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.getExternalContext().getFlash().setKeepMessages(true);
-        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg,"");
+        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, msg,"");
         facesContext.addMessage(null, mensagem);
     }
     
-    
-    
+    public static void mensagemErro(String msg){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.getExternalContext().getFlash().setKeepMessages(true);
+        FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg,"");
+        facesContext.addMessage(null, mensagem);
+    }
     
     
 }

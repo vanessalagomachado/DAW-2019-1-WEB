@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Cadastro de Estado</ui:define>
+        <ui:define name="conteudo">
+            <h:form>
+                <p:growl/>
+                <div align="center">
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">
+                            <p:outputLabel value="Dados do País"/>
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton value="Cancelar" 
+                                                 action="#{controleEstado.cancelar()}"
+                                                 ajax="false"
+                                                 immediate="true"/>
+                                <p:commandButton value="Salvar"
+                                                 action="#{controleEstado.salvar()}"
+                                                 ajax="false"
+                                                 icon="ui-icon-disk"/>
+                                                 
+                            </div>
+                                
+                        </f:facet>
+                        <p:outputLabel value="ID"/>
+                        <p:inputText value="#{controleEstado.obj.id}"
+                                     readonly="true"
+                                     size="5"/>
+                        <p:outputLabel value="Nome"/>
+                        <p:inputText value="#{controleEstado.obj.nome}"/>
+                        <p:outputLabel value="UF"/>
+                        <p:inputText value="#{controleEstado.obj.uf}"
+                                     maxlength="2"
+                                     size="4"/>      
+                        <p:outputLabel value="País" for="selectPais"/>
+                        <p:selectOneMenu id="selectPais" 
+                                         value="#{controleEstado.obj.pais}"
+                                         filter="true"
+                                         filterMatchMode="startWith">
+                            <f:converter converterId="converterPais" />
+                            <f:selectItem noSelectionOption="true"
+                                          itemLabel="Selecione um registro"/>
+                            <f:selectItems value="#{controleEstado.daoPais.lista}"
+                                           var="p"
+                                           itemLabel="#{p.nome}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

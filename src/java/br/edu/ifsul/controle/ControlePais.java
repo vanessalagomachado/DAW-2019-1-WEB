@@ -58,7 +58,7 @@ public class ControlePais implements Serializable{
             Util.mensagemInformacao(dao.getMensagem());
             return "listar?faces-redirect=true";
         } else{
-            Util.mensagemInformacao(dao.getMensagem());//Criar método para erros
+            Util.mensagemErro(dao.getMensagem());//Criar método para erros
             return "formulario?faces-redirect=true";
         }
     }
@@ -74,8 +74,12 @@ public class ControlePais implements Serializable{
     
     public void remover(Integer id){
         obj = dao.localizar(id);
-        dao.remover(obj);
-        Util.mensagemInformacao(dao.getMensagem());
+        if(dao.remover(obj)){
+            Util.mensagemInformacao(dao.getMensagem());
+        } else {
+            Util.mensagemErro(dao.getMensagem());
+        }
+        
     }
     
 }

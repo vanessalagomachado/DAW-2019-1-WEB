@@ -8,6 +8,7 @@
     <f:view encoding="ISO_8859-1" contentType="text/html">
         <h:head>
             <title><ui:insert name="titulo">Título da Página</ui:insert></title>
+            <!-- estava chamando o arquivo errado -->
             <h:outputStylesheet library="css" name="estilos.css"/>
             <h:outputScript library="js" name="scripts.js"/>
         </h:head>
@@ -22,6 +23,9 @@
                                 <p:submenu label="Básicos">
                                     <p:menuitem action="#{controlePais.listar()}"
                                                 value="Manutenção de Países"
+                                                ajax="false"/>
+                                    <p:menuitem action="#{controleEstado.listar()}"
+                                                value="Manutenção de Estados"
                                                 ajax="false"/>
                                 </p:submenu>
                             </p:column>

@@ -5,31 +5,34 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="/templates/template.xhtml">
-        <ui:define name="titulo">Listagem de Países</ui:define>
+        <ui:define name="titulo">Listagem de Estados</ui:define>
         <ui:define name="conteudo">
             <h:form>
                 <!--p:messages/-->
                 <p:growl/>
                 <p:commandButton value="Novo" 
-                                 action="#{controlePais.novo()}" 
+                                 action="#{controleEstado.novo()}" 
                                  ajax="false"
                                  icon="ui-icon-plus"/>
-                <p:dataTable value="#{controlePais.dao.lista}" var="item">
+                <p:dataTable value="#{controleEstado.dao.listaObjetos}" var="item">
                     <p:column headerText="ID">
                         <p:outputLabel value="#{item.id}"/>
                     </p:column>
                     <p:column headerText="Nome">
                         <p:outputLabel value="#{item.nome}"/>
                     </p:column>
-                    <p:column headerText="ISO">
-                        <p:outputLabel value="#{item.iso}"/>
+                    <p:column headerText="UF">
+                        <p:outputLabel value="#{item.uf}"/>
+                    </p:column>
+                    <p:column headerText="País">
+                        <p:outputLabel value="#{item.pais.nome}"/>
                     </p:column>
                     <p:column headerText="Ações">
-                        <p:commandButton action="#{controlePais.editar(item.id)}"
+                        <p:commandButton action="#{controleEstado.editar(item.id)}"
                                          ajax="false"
                                          icon="ui-icon-pencil"
                                          title="Editar"/>
-                        <p:commandButton action="#{controlePais.remover(item.id)}"
+                        <p:commandButton action="#{controleEstado.remover(item.id)}"
                                          icon="ui-icon-trash"
                                          title="Remover"
                                          update="@form"
