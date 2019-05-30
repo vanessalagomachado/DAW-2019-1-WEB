@@ -6,62 +6,62 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/template.xhtml">
-        <ui:define name="titulo">Listagem de Estados</ui:define>
+        <ui:define name="titulo">Listagem de Cidades</ui:define>
         <ui:define name="conteudo">
             <h:form>
                 <!--p:messages/-->
                 <p:growl/>
                 <p:commandButton value="Novo" 
-                                 action="#{controleEstado.novo()}" 
+                                 action="#{controleCidade.novo()}" 
                                  ajax="false"
                                  icon="ui-icon-plus"/>
                 <div align="center">
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem: "/>
                         <p:selectOneMenu id="ordem"
-                                         value="#{controleEstado.dao.ordem}">
+                                         value="#{controleCidade.dao.ordem}">
                             <f:selectItem itemLabel="ID" itemValue="id"/>
                             <f:selectItem itemLabel="Nome" itemValue="nome"/>
-                            <f:selectItem itemLabel="Pais" itemValue="pais.nome"/> 
+                            <f:selectItem itemLabel="Estado" itemValue="estado.nome"/> 
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Filtro: "/>
-                        <p:inputText value="#{controleEstado.dao.filtro}">
+                        <p:inputText value="#{controleCidade.dao.filtro}">
                             <p:ajax event="keyup" update="listagem"/>
                         </p:inputText>
                         <p:commandButton value="Filtrar"
                                          update="listagem"/>
                         <p:outputLabel value="Máximo de Objetos: "/>
-                        <p:inputNumber value="#{controleEstado.dao.maximoObjetos}"
+                        <p:inputNumber value="#{controleCidade.dao.maximoObjetos}"
                                        size="3"
                                        thousandSeparator=""
                                        decimalSeparator=""
                                        decimalPlaces="0">
                             <p:ajax event="keyup" update="listagem"/>
                         </p:inputNumber>
-                        <p:commandButton action="#{controleEstado.dao.primeiro()}"
+                        <p:commandButton action="#{controleCidade.dao.primeiro()}"
                                          title="Primeiro"
                                          icon="ui-icon-seek-first"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleEstado.dao.anterior()}"
+                        <p:commandButton action="#{controleCidade.dao.anterior()}"
                                          title="Anterior"
                                          icon="ui-icon-seek-prev"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleEstado.dao.proximo()}"
+                        <p:commandButton action="#{controleCidade.dao.proximo()}"
                                          title="Próximo"
                                          icon="ui-icon-seek-next"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleEstado.dao.ultimo()}"
+                        <p:commandButton action="#{controleCidade.dao.ultimo()}"
                                          title="Último"
                                          icon="ui-icon-seek-end"
                                          update="listagem"/>
                     </p:panelGrid>
                 </div>
-                <p:dataTable value="#{controleEstado.dao.listaObjetos}" 
+                <p:dataTable value="#{controleCidade.dao.listaObjetos}" 
                              var="item"
                              id="listagem">
                     <f:facet name="footer">
-                        <p:outputLabel value="#{controleEstado.dao.mensagemNavegacao}"/>
+                        <p:outputLabel value="#{controleCidade.dao.mensagemNavegacao}"/>
                     </f:facet>
                     <p:column headerText="ID">
                         <p:outputLabel value="#{item.id}"/>
@@ -69,22 +69,20 @@
                     <p:column headerText="Nome">
                         <p:outputLabel value="#{item.nome}"/>
                     </p:column>
-                    <p:column headerText="UF">
-                        <p:outputLabel value="#{item.uf}"/>
-                    </p:column>
-                    <p:column headerText="País">
-                        <p:outputLabel value="#{item.pais.nome}"/>
+                    
+                    <p:column headerText="Estado">
+                        <p:outputLabel value="#{item.estado.nome}"/>
                     </p:column>
                     <p:column headerText="Ações">
-                        <p:commandButton action="#{controleEstado.editar(item.id)}"
+                        <p:commandButton action="#{controleCidade.editar(item.id)}"
                                          ajax="false"
                                          icon="ui-icon-pencil"
                                          title="Editar"/>
-                        <p:commandButton action="#{controleEstado.remover(item.id)}"
+                        <p:commandButton action="#{controleCidade.remover(item.id)}"
                                          icon="ui-icon-trash"
                                          title="Remover"
                                          update="@form"
-                                         onclick="if(!confirm('Deseja excluir?') return false)"/>
+                                         onclick="(confirm('Deseja excluir?')?return true:return false)"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
