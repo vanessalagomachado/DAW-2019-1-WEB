@@ -39,19 +39,19 @@
                                        decimalPlaces="0">
                             <p:ajax event="keyup" update="listagem"/>
                         </p:inputNumber>
-                        <p:commandButton action="#{controleCidade.dao.primeiro()}"
+                        <p:commandButton actionListener="#{controleCidade.dao.primeiro()}"
                                          title="Primeiro"
                                          icon="ui-icon-seek-first"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleCidade.dao.anterior()}"
+                        <p:commandButton actionListener="#{controleCidade.dao.anterior()}"
                                          title="Anterior"
                                          icon="ui-icon-seek-prev"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleCidade.dao.proximo()}"
+                        <p:commandButton actionListener="#{controleCidade.dao.proximo()}"
                                          title="Próximo"
                                          icon="ui-icon-seek-next"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleCidade.dao.ultimo()}"
+                        <p:commandButton actionListener="#{controleCidade.dao.ultimo()}"
                                          title="Último"
                                          icon="ui-icon-seek-end"
                                          update="listagem"/>
@@ -82,7 +82,8 @@
                                          icon="ui-icon-trash"
                                          title="Remover"
                                          update="@form"
-                                         onclick="(confirm('Deseja excluir?')?return true:return false)"/>
+                                         ajax="false"
+                                         onclick="if(!confirm('Confirma a exclusão')) return false"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
