@@ -5,7 +5,10 @@
  */
 package br.edu.ifsul.controle;
 
+import br.edu.ifsul.dao.CidadeDAO;
 import br.edu.ifsul.dao.PessoaFisicaDAO;
+import br.edu.ifsul.modelo.Cidade;
+import br.edu.ifsul.modelo.Endereco;
 import br.edu.ifsul.modelo.PessoaFisica;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
@@ -21,9 +24,13 @@ import javax.faces.bean.ViewScoped;
 public class ControlePessoaFisica implements Serializable{
     private PessoaFisica obj;
     private PessoaFisicaDAO<PessoaFisica> dao;
+    private Endereco endereco;
+    private Boolean novoEndereco;
+    private CidadeDAO<Cidade> daoCidade;
 
     public ControlePessoaFisica() {
         dao = new PessoaFisicaDAO<>();
+        daoCidade = new CidadeDAO<>();
     }
 
     public PessoaFisica getObj() {
@@ -84,5 +91,49 @@ public class ControlePessoaFisica implements Serializable{
         else
             Util.mensagemErro(dao.getMensagem());
     }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Boolean getNovoEndereco() {
+        return novoEndereco;
+    }
+
+    public void setNovoEndereco(Boolean novoEndereco) {
+        this.novoEndereco = novoEndereco;
+    }
+    
+    public void addEndereco(){
+        endereco = new Endereco();
+        novoEndereco = true;
+    }
+    public void editarEndereco(int indice){
+        endereco = obj.getEnderecos().get(indice);
+        novoEndereco = false;
+    }
+    public void salvarEndereco(){
+        if(novoEndereco)
+            obj.adicionarEndereco(endereco);
+        Util.mensagemInformacao("Endereço persistido com sucesso!");
+    }
+    public void removerEndereco(int indice){
+        obj.removerEndereco(indice);
+        Util.mensagemInformacao("Endereço removido com sucesso!");
+    }
+
+    public CidadeDAO<Cidade> getDaoCidade() {
+        return daoCidade;
+    }
+
+    public void setDaoCidade(CidadeDAO<Cidade> daoCidade) {
+        this.daoCidade = daoCidade;
+    }
+    
+    
     
 }
