@@ -181,6 +181,46 @@
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
+                        <p:tab title="Desejos">
+                            <p:dataTable value="#{controlePessoaFisica.obj.listaDesejo}"
+                                         var="des" rowIndexVar="idxDesejo" id="listaDesejos">
+                                <f:facet name="header">
+                                    <p:panelGrid columns="2">
+                                        <p:selectOneMenu value="#{controlePessoaFisica.produto}"
+                                                         id="selectProduto"
+                                                         filter="true"
+                                                         filterMatchMode="startsWith">
+                                            
+                                            <f:selectItem noSelectionOption="true"
+                                                          itemLabel="Selecione um registro"/>
+                                            <f:selectItems value="#{controlePessoaFisica.daoProduto.listaTodos}"
+                                                           var="p" itemLabel="#{p.nome}"/>
+                                            <f:converter converterId="converterProduto"/>
+                                        </p:selectOneMenu>
+                                        <p:commandButton value="Adicionar"
+                                                         actionListener="#{controlePessoaFisica.adicionarDesejo()}"
+                                                         update="listaDesejos growl"
+                                                         id="btnAdicionarDesejo"
+                                                         process="btnAdicionarDesejo selectProduto"
+                                                         icon="ui-icon-plus"/>
+                                    </p:panelGrid>
+                                </f:facet>
+                                <p:column headerText="Produto">
+                                    <p:outputLabel value="#{des.nome}"/>
+                                </p:column>
+                                <p:column headerText="Ação">
+                                    <div align="center">
+                                        <p:commandButton id="btnRemoverDesejo"
+                                                         actionListener="#{controlePessoaFisica.removerDesejo(idxDesejo)}"
+                                                         process="btnRemoverDesejo"
+                                                         update="listaDesejos growl"
+                                                         onclick="if(!confirm('Confirma excusão?')) return false"
+                                                         icon="ui-icon-trash"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        
                     </p:tabView>
                     <p:panel>
                         <div align="center">

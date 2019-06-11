@@ -7,9 +7,11 @@ package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.CidadeDAO;
 import br.edu.ifsul.dao.PessoaFisicaDAO;
+import br.edu.ifsul.dao.ProdutoDAO;
 import br.edu.ifsul.modelo.Cidade;
 import br.edu.ifsul.modelo.Endereco;
 import br.edu.ifsul.modelo.PessoaFisica;
+import br.edu.ifsul.modelo.Produto;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
@@ -27,10 +29,13 @@ public class ControlePessoaFisica implements Serializable{
     private Endereco endereco;
     private Boolean novoEndereco;
     private CidadeDAO<Cidade> daoCidade;
-
+    private ProdutoDAO<Produto> daoProduto;
+    private Produto produto;
+    
     public ControlePessoaFisica() {
         dao = new PessoaFisicaDAO<>();
         daoCidade = new CidadeDAO<>();
+        daoProduto = new ProdutoDAO<>();
     }
 
     public PessoaFisica getObj() {
@@ -133,7 +138,41 @@ public class ControlePessoaFisica implements Serializable{
     public void setDaoCidade(CidadeDAO<Cidade> daoCidade) {
         this.daoCidade = daoCidade;
     }
+
+    public ProdutoDAO<Produto> getDaoProduto() {
+        return daoProduto;
+    }
+
+    public void setDaoProduto(ProdutoDAO<Produto> daoProduto) {
+        this.daoProduto = daoProduto;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
     
+    
+    public void adicionarDesejo(){
+        if(produto != null){
+            if(!obj.getListaDesejo().contains(produto)){
+                obj.adicionarProdutoDesejo(produto);
+                Util.mensagemInformacao("Desejo adicionado com sucesso");
+            } else{
+                Util.mensagemErro("Produto já existe na lista de desejos");
+            }
+        }
+    }
+    
+    public void removerDesejo(int indice){
+         Object[] lista = obj.getListaDesejo().toArray();
+         Produto p = (Produto) lista[indice];
+         obj.getListaDesejo().remove(p);
+         Util.mensagemInformacao("Desejo removido com sucesso");
+    }
     
     
 }
